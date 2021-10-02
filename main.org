@@ -1,0 +1,386 @@
+#+Title: Tarea 2
+#+author: Dietrich Daroch
+#+language: es
+
+* Setup                                                            :ignore:
+** org-mode                                                          :ignore:
+   #+startup: overview
+   #+seq_todo: TODO | REVIEW DONE
+
+*** export options                                                   :ignore:
+   # Use sub-sub-sub-section
+   #+options: H:4
+   # We have a custom title
+   #+options: title:nil
+   # We don't want a table of contents
+   #+options: toc:nil
+   # We don't numbered sections
+   #+options: num:nil
+   #+options: tasks:t
+   #+options: tags:nil
+   #+options: d:nil
+   #+options: skip:nil ^:nil timestamp:nil
+
+** LaTeX                                                             :ignore:
+*** Latex header                                                     :ignore:
+**** Document class                                                  :ignore:
+     #+LATEX_CLASS: article
+     #+LATEX_CLASS_OPTIONS: [a4paper]
+
+**** Packages                                                        :ignore:
+     #+LATEX_HEADER: \usepackage{fullpage}
+     #+LATEX_HEADER: \usepackage[utf8]{inputenc}
+     #+LATEX_HEADER: \usepackage[spanish]{babel}
+     #+LATEX_HEADER: \usepackage{epsfig}
+     #+LATEX_HEADER: \usepackage{amsmath}
+     #+LATEX_HEADER: \usepackage{amssymb}
+     #+LATEX_HEADER: \usepackage{epstopdf}
+     #+LATEX_HEADER: \usepackage{algorithmic}
+     #+LATEX_HEADER: \usepackage[nothing]{algorithm}
+
+**** Code                                                            :ignore:
+     #+LATEX_HEADER: \usepackage{minted}
+     #+LATEX_HEADER: \setminted[prolog] {
+     #+LATEX_HEADER:   linenos=false,
+     #+LATEX_HEADER:   autogobble=true,
+     #+LATEX_HEADER:   frame=lines,
+     #+LATEX_HEADER:   framesep=2mm,
+     #+LATEX_HEADER:   fontsize=\footnotesize
+     #+LATEX_HEADER: }
+
+*** Aliases                                                          :ignore:
+    #+LATEX_HEADER: \newcommand{\astar}{$A^*$}
+
+*** Other                                                            :ignore:
+    # https://tex.stackexchange.com/questions/8351/what-do-makeatletter-and-makeatother-do
+    #+LATEX_HEADER: \makeatletter
+    #+LATEX_HEADER: \makeatother
+
+** Title                                                             :ignore:
+   #+LATEX: \begin{tabular}{ccl}
+   #+LATEX: \begin{tabular}{c}
+   #+LATEX: \includegraphics[width=2.5cm]{Figures/puc-logo.pdf}
+   #+LATEX: \end{tabular}
+   #+LATEX: &\ \ \ &
+   #+LATEX: \begin{tabular}{l}
+   #+LATEX: PONTIFICIA UNIVERSIDAD CATÓLICA DE CHILE\\
+   #+LATEX: ESCUELA DE INGENIERÍA\\
+   #+LATEX: DEPARTAMENTO DE CIENCIAS DE LA COMPUTACIÓN
+   #+LATEX: \end{tabular}
+   #+LATEX: \end{tabular}
+
+   #+LATEX: \begin{center}
+   #+LATEX: \bf IIC2613 - Inteligencia Artificial\\
+   #+LATEX: \bf 2do semestre del 2021\\~\\
+
+   #+LATEX: \vspace{0.4cm}
+
+   #+LATEX: \bf {\Huge Tarea 1}
+   #+LATEX: \end{center}
+
+* Instrucciones
+** Entrega
+   La tarea tiene plazo hasta el Domingo 17 de Octubre a las 23:59.
+   Se recolectará el commit en el /default branch/ a la hora de entrega.
+
+** Repositorio
+   Ésta tarea usa ~git~. Usted trabajará individualmente en un /fork/ *privado*
+   del repositorio de la tarea al que se le dará acceso mediante github
+   classrooms.
+
+   Su fork debe modificar el código y agregar un documento con las respuestas.
+   Para las preguntas de implementación basta referenciar a su código.
+
+   Las preguntas públicas respecto a la tarea deben ser hechas a través de
+  [[https://github.com/IIC2613-Inteligencia-Artificial-2021-2/Syllabus/issues/new][ /issues/]] en github.
+
+** Integridad
+
+   Su repositorio debe permanecer privado y se espera que sigan el
+  [[https://www.uc.cl/codigo-de-honor/][ Código de Honor]] de la escuela.
+
+   Toda respuesta debe ser escrita por ti, individualmente.
+   Esto significa que al momento de editar la respuesta, no debes copiar el
+   material hecho por otra persona. Queremos tu comprensión y entendimiento de
+   las cosas que estudies y aprendas. Por lo tanto, las definiciones y análisis
+   que presentes deben venir de tu propio razonamiento.
+
+   También es importante dejar claro que sabemos que estás utilizando material
+   hecho por otras personas, y debes reconocerlo. Es por eso que te pediremos
+   que cites tus fuentes en esta oportunidad. Tienes dos formas de citar. La
+   primera es bastante indirecta, y solamente exige que menciones a tu fuente en
+   tu bibliografı́a.
+   Harás esto cuando hayas aprendido conceptos, los hayas interiorizado, y estés
+   dando tu interpretación. La segunda es más directa, utilizarás las comillas
+   “” para parafrasear algo que se le ocurrió a otra persona, seguido de un
+   paréntesis con la referencia de dónde se encuentra dicho texto. Solamente
+   debes parafrasear cuando quieres darle fuerza a un argumento, jamás para
+   contestar algo que se te pregunte a ti, pues tal respuesta, si bien te evita
+   el plagio, tampoco te da puntaje. Las citas de publicaciones cientı́ficas las
+   puedes poner en cualquier formato de amplia aceptación como APA, ICONTEC e
+   IEEE, por nombrar algunos.
+   Las citas a sitios web las debes hacer referenciando el link del sitio, y la
+   fecha de la que has tomado la referencia. Por favor, no cites a tus
+   compañeros, aprende de ellos, sé crı́tico con sus opiniones, y entrega tu
+   propio trabajo original.
+   Esta misma regla también se cumple respecto del código que entregues.
+
+** Código
+   Hay implementaciones parciales para cada problema con tal de hacer todas
+   las tareas uniformes.
+   También hay instancias simples propuestas para todos los problemas.
+
+* Satisfacción de Restricciones
+** Dependency-hell
+   Un problema frecuente al manejar software, es poder ofrecer combinaciones
+   correctas de librerías de tal manera que varios programas puedan funcionar.
+
+   Manejar las dependencias no es trivial, y muchas veces termina en un
+   [[https://en.wikipedia.org/wiki/Dependency_hell][Dependency hell]].
+
+   Crée un programa que ayude a determinar si es posible ofrecer cierto conjunto
+   de programas.
+
+   Los programas serán descritos de la siguiente manera,
+   #+begin_src prolog
+     % Domain
+     program(Program)
+     version(Library, versionNumber)
+
+     % Problem instance
+     requiresAtLeast(Program, RequiredLibrary, minVersion)
+     requiresAtMost(Program, RequiredLibrary, maxVersion)
+     installed(Library, versionNumber)
+
+     % Goal
+     wants(Program).
+
+     % Plan
+     shouldDelete(Library, number).
+     shouldInstall(Library, number).
+     #show shouldDelete/2.
+     #show shouldInstall/2.
+   #+end_src
+
+   Por ejemplo, para el siguiente conjunto de programas
+   #+begin_src prolog
+     program(echo;cat;ls).
+     version(libc, 0).
+     version(libc, 1).
+     version(libc, 2).
+     version(libc, 3).
+
+     % Problem instance
+     requiresAtLeast(echo, libc, 1).  % `echo` uses new feature from libc v1.
+     requiresAtLeast(ls, libc, 0).
+     requiresAtMost(cat, libc, 2).    % libc v3 broke `cat`.
+     installed(libc, 1).
+     installed(libc, 3).
+
+     wants(echo;cat).
+   #+end_src
+
+   Soluciones posibles son,
+   #+begin_src prolog
+     shouldDelete(libc, 3).
+   #+end_src
+
+   #+begin_src prolog
+     shouldDelete(libc, 1).
+     shouldDelete(libc, 3).
+     shouldInstall(libc, 2).
+   #+end_src
+
+   - [0.8] Escriba un programa que pueda determinar soluciones factibles. No es
+   necesario que determine todas las soluciones posibles, pero debe encontrar
+   soluciones cuando hay.
+   - [0.7] ?`Cómo aseguraría que se usan las librerías más nuevas posibles?
+     Agregue reglas que exijan esto.
+
+\newpage
+* Planificación
+  En clases revisamos el modelo de planificación de [[https://en.wikipedia.org/wiki/STanford_Research_Institute_Problem_Solver][STRIPS]], en el que se
+  describe el mundo con /fluentes/, predicados dinámicos en el tiempo.
+
+  Los siguientes problemas pueden ser modelados en STRIPS. Para cada problema se
+  muestran instancias muy simples, pero se espera que sus soluciones puedan
+  resolver problemas un poco más complejos. Tenga cuidado de que el grounding de
+  sus programas (el output de ~gringo~) no crezca demasiado rápido.
+
+** Statues
+   [[https://en.wikipedia.org/wiki/Statues_(game)][Statues]], también conocido como /Red light, green light/ es un juego de niños
+   en donde un lider define si los niños pueden avanzar hacia un objetivo o no.
+
+   Una forma simple de modelarlo para un solo agente, es usando ~holds(T, red)~
+   para indicar cuando no se puede avanzar, y tener una acción ~action(move)~
+   para que el agente se pueda mover a la siguiente posición.
+
+
+   - [0.3] Cree un programa en ASP que pueda resolver instancias como esta.
+     Puede considerar agregar parámetros a ~move~ para convertirlo en una
+     función en vez de una constante.
+     #+begin_src prolog
+       %  S             G   | % k=10
+       %  0|1|2|3|4|5|6|7   | exec(0, move), exec(1, move), exec(4, move), exec(6, move), exec(8, move), ...
+       % -----------------
+
+       start(at(0)).
+       goal(at(7)).
+
+       holds(2, red).
+       holds(3, red).
+       holds(5, red).
+       holds(7, red).
+     #+end_src
+
+   - [0.2] ?`Qué restricciones de integridad agregaría para revisar que el
+     problema tiene solución sin necesidad de tratar de encontrar un plan y
+     fallar?.
+
+** Blocks-world
+   Un problema clásico en planificación es el llamado [[https://en.wikipedia.org/wiki/Blocks_world][mundo de bloques]], en el
+   que en una mesa con varios bloques que se pueden apilar hay que lograr alguna
+   configuración objetivo.
+   En este problema interesa mantener la estabilidad de las torres en todo
+   momento, por lo que solo se permite mover bloques libres, bloques que estén
+   al tope de una pila, y también sólo se pueden apilar de a uno por nivel de
+   cada torre.
+
+   Este problema es interesante porque a pesar de lo simple que parece, puede
+   mostrar que ciertas ideas que parecen buenas implementar en un /solver/ para
+   resolver problemas no siempre funcionan tan bien.
+
+   La [[https://en.wikipedia.org/wiki/Sussman_anomaly][anomalía de Sussman]] (sus?) muestra que dividir el objetivo en
+   sub-objetivos que pueden ser alcanzados de forma independiente no siempre nos
+   entrega sub-soluciones que podemos combinar para solucionar el problema
+   original.
+
+   - [1] Modele el mundo de bloques de forma de poder resolver instancias como
+     esta,
+
+     #+begin_src prolog
+       %                   |---|   |
+       %                   | a |   |  % k=3
+       %        |---|      |---|   |  exec(0, move(c,table)).
+       %        | c |      | b |   |  exec(1, move(b,c)).
+       %  |---| |---|  =>  |---|   |  exec(2, move(a,b)).
+       %  | b | | a |      | c |   |
+       % ------------------------
+
+       block(a; b; c).
+
+       start( on(b, table)
+            ; on(a, table)
+            ; on(c, a)).
+
+       goal( on(a, b)
+           ; on(b, c)
+           ; on(c, table)).
+     #+end_src
+
+   - [1] Si un robot tuviese varios brazos que puedan operar en paralelo y sin
+     chocar podríamos pensar que son 2 agentes que colaboran para lograr un
+     objetivo común.
+
+     Implemente una versión para multiples brazos que pueda resolver instancias
+     como esta.
+
+     #+begin_src prolog
+       %                                             |
+       %                                             |  % k=1
+       %                                |---||---|   |  exec(0, l, move(a,b)).
+       %                                | a || c |   |  exec(0, r, move(c,d)).
+       %  |---| |---| |---| |---|  =>   |---||---|   |
+       %  | a | | b | | c | | d |       | b || d |   |
+       % ------------------------------------------
+
+       arm(l; r).
+       block(a; b; c; d).
+
+       start( on(a, table)
+            ; on(b, table)
+            ; on(c, table)
+            ; on(d, table)).
+
+       goal( on(a, b)
+           ; on(c, d)).
+     #+end_src
+
+\newpage
+** Café a la oficina
+   En el DCC los profesores necesitan tomar café, té o [[https://xkcd.com/323/][cerveza]] para poder
+   funcionar, pero ahora es más difícil poder ofrecerlo manteniendo el
+   distanciamiento social.
+
+   Para solucionar este problema, se decidió usar robots que repartan café, té u
+   otros. La gente de robótica ya tiene un robot que puede navegar dentro de una
+   pieza, pero esto no es suficiente para saber qué hacer.
+
+*** Un robot que reparte café
+
+    - [1.5] Solucione el problema de repartir café. Considere los siguientes
+      dominios, fluentes y acciones,
+
+      #+begin_src prolog
+        % Domains
+        time(T)
+        room(Room)
+        office(Office)
+        kitchen(Kitchen)
+        door(Door)
+        agent(Agent)
+        drink(Drink)
+
+        % Building layout
+        connected(SrcRoom, DstRoom, Door)
+
+        % Actions
+        % =======
+        % Move around
+        action(move([SrcRoom,] DstRoom))
+        % Position fluents
+        fluent(agentAt(Room))
+
+        % Interact with Doors
+        action(open([SrcRoom,] Door))
+        action(close([DstRoom,] Door))
+        % Door Fluents
+        fluent(isOpen(Door))
+        fluent(isClosed(Door))
+
+        % Interact with drinks
+        action(prepare(Drink))  % At a Kitchen
+        action(take(Drink))
+        action(deliver(Drink))
+        % Drink fluents
+        fluent(has(Drink))
+        fluent(has(Room, Drink))
+
+
+        start( agentAt(r1, kitchen1)
+             ; agentAt(r2, meetingRoom2)).
+        goal( delivered(o23, coffee)
+            ; isClosed(doorOffice23)
+            ; delivered(meetingRoom3, water)
+            ; delivered(o10, beer)).
+      #+end_src
+
+*** Varios robots
+
+    En clases vimos cómo agregar varios agentes a un problema de STRIPS con la
+    consideración de que estos no pueden ejecutar acciones con fluentes
+    conflictivos. Esto es suficiente para modelar varios problemas.
+
+    - [1] Muestre que su solución también funciona para varios agentes al
+      extender ~agentAt(Room)~ y ~has(Drink)~.
+
+      #+begin_src prolog
+        % Domains
+        agent(Agent)
+
+        % Position fluents
+        fluent(agentAt(Agent, Room))
+
+        % Drink fluents
+        fluent(has(Agent, Drink))
+      #+end_src
