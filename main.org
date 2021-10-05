@@ -75,7 +75,7 @@
 
    #+LATEX: \vspace{0.4cm}
 
-   #+LATEX: \bf {\Huge Tarea 1}
+   #+LATEX: \bf {\Huge Tarea 2}
    #+LATEX: \end{center}
 
 * Instrucciones
