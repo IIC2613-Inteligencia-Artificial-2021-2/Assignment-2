@@ -211,8 +211,8 @@
    [[https://en.wikipedia.org/wiki/Statues_(game)][Statues]], también conocido como /Red light, green light/ es un juego de niños
    en donde un lider define si los niños pueden avanzar hacia un objetivo o no.
 
-   Una forma simple de modelarlo para un solo agente, es usando ~holds(T, red)~
-   para indicar cuando no se puede avanzar, y tener una acción ~action(move)~
+   Una forma simple de modelarlo para un solo agente, es usando ~isRed(T)~ para
+   indicar en qué tiempos no se puede avanzar, y tener una acción ~action(move)~
    para que el agente se pueda mover a la siguiente posición.
 
 
@@ -227,10 +227,10 @@
        start(at(0)).
        goal(at(7)).
 
-       holds(2, red).
-       holds(3, red).
-       holds(5, red).
-       holds(7, red).
+       isRed(2).
+       isRed(3).
+       isRed(5).
+       isRed(7).
      #+end_src
 
    - [0.2] ?`Qué restricciones de integridad agregaría para revisar que el
@@ -359,10 +359,10 @@
 
         start( agentAt(r1, kitchen1)
              ; agentAt(r2, meetingRoom2)).
-        goal( delivered(o23, coffee)
+        goal( has(o23, coffee)
             ; isClosed(doorOffice23)
-            ; delivered(meetingRoom3, water)
-            ; delivered(o10, beer)).
+            ; has(meetingRoom3, water)
+            ; has(o10, beer)).
       #+end_src
 
 *** Varios robots
