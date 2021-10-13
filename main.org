@@ -357,9 +357,8 @@
         fluent(has(Room, Drink))
 
 
-        start( agentAt(r1, kitchen1)
-             ; agentAt(r2, meetingRoom2)).
         goal( has(o23, coffee)
+        start(agentAt(kitchen1)).
             ; isClosed(doorOffice23)
             ; has(meetingRoom3, water)
             ; has(o10, beer)).
