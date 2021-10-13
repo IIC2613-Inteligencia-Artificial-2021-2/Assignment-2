@@ -354,14 +354,14 @@
         action(deliver(Drink))
         % Drink fluents
         fluent(has(Drink))
-        fluent(has(Room, Drink))
+        fluent(delivered(Room, Drink))
 
 
-        goal( has(o23, coffee)
         start(agentAt(kitchen1)).
+        goal( delivered(o23, coffee)
             ; isClosed(doorOffice23)
-            ; has(meetingRoom3, water)
-            ; has(o10, beer)).
+            ; delivered(meetingRoom3, water)
+            ; delivered(o10, beer)).
       #+end_src
 
 *** Varios robots
