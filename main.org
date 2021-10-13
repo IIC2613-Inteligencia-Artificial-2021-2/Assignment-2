@@ -337,13 +337,13 @@
         % Actions
         % =======
         % Move around
-        action(move([SrcRoom,] DstRoom))
+        action(move(SrcRoom, DstRoom))  % Or maybe just action(move(DstRoom))
         % Position fluents
         fluent(agentAt(Room))
 
         % Interact with Doors
-        action(open([SrcRoom,] Door))
-        action(close([DstRoom,] Door))
+        action(open(SrcRoom, Door))   % Or maybe just action(open(Door))
+        action(close(DstRoom, Door))  % Or maybe just action(close(Door))
         % Door Fluents
         fluent(isOpen(Door))
         fluent(isClosed(Door))
